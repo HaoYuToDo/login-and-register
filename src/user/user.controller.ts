@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Inject } from '@nestjs/common';
 import type { Response } from 'express';
 import { Res } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
@@ -16,7 +17,7 @@ export class UserController {
 
   @Post('login')
   async login(
-    @Body() user: LoginDto,
+    @Body(ValidationPipe) user: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
     const foundUser = await this.userService.login(user);
@@ -36,7 +37,7 @@ export class UserController {
   }
 
   @Post('register')
-  async register(@Body() user: RegisterDto) {
+  async register(@Body(ValidationPipe) user: RegisterDto) {
     return await this.userService.register(user);
   }
 }
