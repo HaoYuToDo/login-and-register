@@ -9,11 +9,11 @@ export class UserController {
 
   @Post('login')
   login(@Body() user: LoginDto) {
-    console.log(user);
+    console.log('login--->', user);
   }
 
   @Post('register')
-  register(@Body() user: RegisterDto) {
-    console.log(user);
+  async register(@Body() user: RegisterDto) {
+    return await this.userService.register(user);
   }
 }
