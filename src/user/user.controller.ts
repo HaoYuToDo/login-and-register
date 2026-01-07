@@ -8,8 +8,14 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('login')
-  login(@Body() user: LoginDto) {
-    console.log('login--->', user);
+  async login(@Body() user: LoginDto) {
+    const foundUser = await this.userService.login(user);
+
+    if (foundUser) {
+      return 'login success';
+    } else {
+      return 'login fail';
+    }
   }
 
   @Post('register')
