@@ -17,6 +17,7 @@ export class UserController {
 
   @Post('login')
   async login(
+    // ValidationPipe 会自动验证 dto 中的数据是否符合要求 通过class-validator
     @Body(ValidationPipe) user: LoginDto,
     @Res({ passthrough: true }) res: Response,
   ) {
